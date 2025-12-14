@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
@@ -15,7 +15,6 @@ import Checkout from './pages/Checkout';
 import OrderSuccess from './pages/OrderSuccess';
 import Orders from './pages/Orders';
 
-// ✅ Admin pages (fixed import, no .js extension needed)
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AddProduct from './pages/admin/AddProduct';
 import ManageProducts from './pages/admin/ManageProducts';
@@ -44,7 +43,6 @@ function App() {
                 <Route path="/order-success/:orderId" element={<OrderSuccess />} />
                 <Route path="/orders" element={<Orders />} />
 
-                {/* Admin routes */}
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/admin/add-product" element={<AddProduct />} />
                 <Route path="/admin/manage-products" element={<ManageProducts />} />
@@ -60,4 +58,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;

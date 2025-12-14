@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import { HashRouter } from 'react-router-dom';
 
-// ✅ Ensure the root element exists in public/index.html
 const container = document.getElementById('root');
 
 if (!container) {
@@ -13,6 +13,8 @@ const root = ReactDOM.createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <App />
+    <HashRouter>
+      <App />
+    </HashRouter>
   </React.StrictMode>
 );
