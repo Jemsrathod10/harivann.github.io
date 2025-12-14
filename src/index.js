@@ -1,0 +1,18 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+
+// ✅ Ensure the root element exists in public/index.html
+const container = document.getElementById('root');
+
+if (!container) {
+  throw new Error("Root container not found. Make sure <div id='root'></div> exists in public/index.html");
+}
+
+const root = ReactDOM.createRoot(container);
+
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
