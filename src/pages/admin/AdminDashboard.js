@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 
+const API = process.env.REACT_APP_API_URL;
+
 const AdminDashboard = () => {
   const { user } = useAuth();
   const [stats, setStats] = useState({
@@ -25,7 +27,7 @@ const AdminDashboard = () => {
       setLoading(true);
       setError('');
 
-      const productsResponse = await axios.get('http://localhost:5000/api/products');
+      const productsResponse = await axios.get(`${API}/api/products`);
       const products = Array.isArray(productsResponse.data)
         ? productsResponse.data
         : productsResponse.data.products || [];

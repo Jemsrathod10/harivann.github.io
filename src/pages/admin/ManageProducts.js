@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
 import ProductCard from '../../components/ProductCard';
 
+const API = process.env.REACT_APP_API_URL;
+
 const ManageProducts = () => {
   const { user } = useAuth();
   const [products, setProducts] = useState([]);
@@ -21,7 +23,7 @@ const ManageProducts = () => {
   const fetchProducts = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get("https://plant-selling-backend.onrender.com/api/products", {
+      const res = await axios.get(`${API}/api/products`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProducts(res.data.products || []);
@@ -35,7 +37,7 @@ const ManageProducts = () => {
   const fetchCategories = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get("https://plant-selling-backend.onrender.com/api/products", {
+      const res = await axios.get(`${API}/api/categories`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCategories(res.data.categories || []);
@@ -48,7 +50,7 @@ const ManageProducts = () => {
     if (!window.confirm('Are you sure you want to delete this product?')) return;
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`https://plant-selling-backend.onrender.com/api/products/${id}`, {
+      await axios.delete(`${API}/api/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProducts(products.filter((p) => p._id !== id));
@@ -83,7 +85,7 @@ const ManageProducts = () => {
         images: [{ url: editingProduct.image || 'https://via.placeholder.com/400', isPrimary: true }],
       };
 
-      const res = await axios.put(`https://plant-selling-backend.onrender.com/api/products/${editingProduct._id}`, payload, {
+      const res = await axios.put( `${API}/api/products/${editingProduct._id}`, payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

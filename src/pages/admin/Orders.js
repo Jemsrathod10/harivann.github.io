@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
+const API = process.env.REACT_APP_API_URL;
+
 function AdminOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,7 +27,7 @@ function AdminOrders() {
 
       console.log('Fetching admin orders...');
       
-      const response = await fetch('http://localhost:5000/api/orders', {
+      const response = await fetch('${API}/api/orders', {
         method: 'GET',
         headers: { 
           'Authorization': `Bearer ${token}`,
@@ -64,7 +66,7 @@ function AdminOrders() {
     try {
       const token = localStorage.getItem('token');
       
-      const response = await fetch(`http://localhost:5000/api/orders/${orderId}/status`, {
+      const response = await fetch(`${API}/api/orders/${orderId}/status`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

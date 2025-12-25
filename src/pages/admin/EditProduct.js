@@ -3,6 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 
+
+const API = process.env.REACT_APP_API_URL;
+
+
 const EditProduct = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -24,7 +28,7 @@ const EditProduct = () => {
 
         // Fetch product
         const productRes = await axios.get
-        (`https://plant-selling-backend.onrender.com/api/products)${id}`,
+        (`${API}/api/products/)${id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         const p = productRes.data.product;
@@ -35,7 +39,7 @@ const EditProduct = () => {
         });
 
         // Fetch categories
-        const categoriesRes = await axios.get('http://localhost:5000/api/categories');
+        const categoriesRes = await axios.get(`${API}/api/categories`);
         setCategories(categoriesRes.data.categories || []);
       } catch (err) {
         console.error(err);
@@ -75,7 +79,7 @@ const EditProduct = () => {
         tags: product.tags,
       };
 
-      await axios.put(`http://localhost:5000/api/products/${id}`, payload, {
+      await axios.get(`${API}/api/products/${id}`, payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
 
+const API = process.env.REACT_APP_API_URL;
+
 const AddProduct = () => {
   const { user } = useAuth();
   const [name, setName] = useState('');
@@ -21,17 +23,9 @@ const AddProduct = () => {
   useEffect(() => {
     if (!user || !user.isAdmin) window.location.href = '/';
 
-    const fetchCategories = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const res = await axios.get("https://plant-selling-backend.onrender.com/api/products"
-, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setCategories(res.data.categories || []);
-      } catch (err) {
-        console.error(err);
-      }
+  const fetchCategories = async () => {
+      const res = await axios.get(`${API}/api/categories`);
+      setCategories(res.data.categories || res.data);
     };
 
     fetchCategories();
@@ -57,10 +51,10 @@ const AddProduct = () => {
         }
       };
 
-      await axios.get("https://plant-selling-backend.onrender.com/api/products"
-, payload, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+        await axios.post(`${API}/api/products`, payload, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
 
       alert('✅ Product added successfully');
       // reset fields

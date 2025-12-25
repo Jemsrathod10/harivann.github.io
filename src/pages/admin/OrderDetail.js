@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
+const API = process.env.REACT_APP_API_URL;
+
+
 function OrderDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -13,7 +16,7 @@ function OrderDetail() {
     const token = localStorage.getItem('token');
     console.log('Fetching order with token:', token);
 
-    fetch(`http://localhost:5000/api/orders/${id}`, {   // <-- FULL URL
+    fetch(`${API}/api/orders/${id}`, {   // <-- FULL URL
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => res.json())
@@ -39,7 +42,7 @@ function OrderDetail() {
     const token = localStorage.getItem('token');
 
     try {
-      const res = await fetch(`http://localhost:5000/api/orders/${id}/status`, {
+      const res = await fetch(`${API}/api/orders/${id}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
