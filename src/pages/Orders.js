@@ -5,6 +5,8 @@ import axios from 'axios';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
+const API = process.env.REACT_APP_API_URL;
+
 const Orders = () => {
   const { user } = useAuth();
   const [orders, setOrders] = useState([]);
@@ -18,7 +20,7 @@ const Orders = () => {
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/orders/myorders', {
+      const response = await axios.get('${API}/api/orders/myorders', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setOrders(Array.isArray(response.data.orders) ? response.data.orders : []);

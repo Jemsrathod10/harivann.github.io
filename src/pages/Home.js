@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ProductCard from '../components/ProductCard';
 
+const API = process.env.REACT_APP_API_URL;
+
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,7 +14,7 @@ const Home = () => {
 
   const fetchFeaturedProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/products');
+      const response = await axios.get('${API}/api/products');
       if (response.data && response.data.products) {
         const products = response.data.products;
         const sortedProducts = products.sort((a, b) => new Date(b.createdAt || b._id) - new Date(a.createdAt || a._id));

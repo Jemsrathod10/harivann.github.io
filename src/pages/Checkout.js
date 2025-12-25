@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 
+const API = process.env.REACT_APP_API_URL;
+
 const Checkout = () => {
   const { cartItems, getCartTotal, clearCart } = useCart();
   const { user } = useAuth();
@@ -83,7 +85,7 @@ const Checkout = () => {
         totalPrice
       };
 
-      const response = await fetch('http://localhost:5000/api/orders/simple', {
+      const response = await fetch('${API}/api/orders/simple', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

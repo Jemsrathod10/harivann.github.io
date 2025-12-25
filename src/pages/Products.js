@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import ProductCard from '../components/ProductCard';
 
+const API = process.env.REACT_APP_API_URL;
+
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);

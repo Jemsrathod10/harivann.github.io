@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
+const API = process.env.REACT_APP_API_URL;
+
 const OrderSuccess = () => {
   const { orderId } = useParams();
   const [order, setOrder] = useState(null);
@@ -13,7 +15,7 @@ const OrderSuccess = () => {
 
   const fetchOrder = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/orders/${orderId}`);
+      const response = await axios.get(`${API}/api/orders/${orderId}`);
       setOrder(response.data);
       setLoading(false);
     } catch (error) {
