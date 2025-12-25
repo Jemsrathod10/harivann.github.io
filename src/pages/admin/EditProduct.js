@@ -23,8 +23,8 @@ const EditProduct = () => {
         const token = localStorage.getItem('token');
 
         // Fetch product
-        const productRes = await axios.get(
-          `http://localhost:5000/api/products/${id}`,
+        const productRes = await axios.get
+        (`https://plant-selling-backend.onrender.com/api/products)${id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         const p = productRes.data.product;

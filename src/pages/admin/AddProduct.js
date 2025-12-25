@@ -24,7 +24,8 @@ const AddProduct = () => {
     const fetchCategories = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5000/api/categories', {
+        const res = await axios.get("https://plant-selling-backend.onrender.com/api/products"
+, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setCategories(res.data.categories || []);
@@ -56,7 +57,8 @@ const AddProduct = () => {
         }
       };
 
-      await axios.post('http://localhost:5000/api/products', payload, {
+      await axios.get("https://plant-selling-backend.onrender.com/api/products"
+, payload, {
         headers: { Authorization: `Bearer ${token}` }
       });
 

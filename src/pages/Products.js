@@ -9,48 +9,37 @@ const Products = () => {
   const [error, setError] = useState('');
   const [filterCategory, setFilterCategory] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
+  const API = process.env.REACT_APP_API_URL;
 
-  // ✅ fetch products
-  const fetchProducts = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError('');
-      const response = await axios.get('http://localhost:5000/api/products');
-      let productsData = Array.isArray(response.data)
-        ? response.data
-        : response.data?.products;
-      if (!Array.isArray(productsData)) {
-        productsData = [];
-      }
-      setProducts(productsData);
-    } catch (err) {
-      setError(
-        err.response?.data?.message ||
-        err.message ||
-        'Failed to connect to server'
-      );
-      setProducts([]);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+ // fetch products
+const fetchProducts = useCallback(async () => {
+  try {
+    setLoading(true);
+    setError('');
+    const response = await axios.get(`${API}/api/products`);
+    let productsData = Array.isArray(response.data)
+      ? response.data
+      : response.data?.products || [];
+    setProducts(productsData);
+  } catch (err) {
+    setError(err.message || 'Failed to connect to server');
+    setProducts([]);
+  } finally {
+    setLoading(false);
+  }
+}, []);
 
-  // ✅ fetch categories
-  const fetchCategories = useCallback(async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/categories');
-      let categoriesData = Array.isArray(response.data)
-        ? response.data
-        : response.data?.categories;
-      if (!Array.isArray(categoriesData)) {
-        categoriesData = [];
-      }
-      setCategories(categoriesData);
-    } catch (err) {
-      console.error('Error fetching categories:', err.message);
-      setCategories([]);
-    }
-  }, []);
+// fetch categories
+const fetchCategories = useCallback(async () => {
+  try {
+    const response = await axios.get(`${API}/api/categories`);
+    let categoriesData = response.data?.categories || response.data || [];
+    setCategories(categoriesData);
+  } catch (err) {
+    console.error('Error fetching categories:', err.message);
+    setCategories([]);
+  }
+}, []);
 
   useEffect(() => {
     fetchProducts();
