@@ -22,7 +22,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('${API}/api/auth/login', formData);
+      const response = await axios.post(`${API}/api/auth/login`, formData);
 
       // ✅ Save token + user globally
       login(response.data.user, response.data.token);
