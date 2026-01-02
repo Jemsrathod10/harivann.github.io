@@ -85,7 +85,7 @@ const Checkout = () => {
         totalPrice
       };
 
-      const response = await fetch('${API}/api/orders/simple', {
+      const response = await fetch(`${API}/api/orders/simple`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
